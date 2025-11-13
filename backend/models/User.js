@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema(
   {
     username: { type: String, required: true, unique: true, trim: true },
     password_hash: { type: String, required: true },
+    image: {
+      type: String,
+      default: "/default-avatar.png", // 👈 Thêm default value
+      trim: true,
+    },
+    fullname: { type: String, default: "" },
 
     // role global (MANAGER: có thể tạo store; STAFF: nhân viên)
     role: {
@@ -64,6 +70,13 @@ const userSchema = new mongoose.Schema(
     loginAttempts: { type: Number, default: 0 },
     lockUntil: { type: Date, default: null },
     alertCount: { type: Number, default: 0 },
+
+    // === SUBSCRIPTION INFO ===
+    // Chỉ giữ is_premium để quick check, các field khác lấy từ Subscription model
+    is_premium: {
+      type: Boolean,
+      default: false,
+    },
 
     // Other
     last_login: { type: Date, default: null },
